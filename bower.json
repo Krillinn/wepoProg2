@@ -1,0 +1,23 @@
+{
+  "name": "webApp2",
+  "version": "0.0.0",
+  "description": "NA",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Batman"
+  ],
+  "authors": [
+    "Kristjan and Gunnar"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

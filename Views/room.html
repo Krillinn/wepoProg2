@@ -2,7 +2,8 @@
 	{{errorMessage}}
 </div>
 
-<h3>Hi {{currentUser}} - Room {{currentRoom}}</h3>
+<!--
+<h3>Hi {{currentUser}}  ~Room {{currentRoom}}</h3>
 <div class="col-md-9">
 	TODO - display chat
 </div>
@@ -15,3 +16,97 @@
 		</ul>
 	</div>
 </div>
+-->
+
+<div class="container">
+	<div class="row ">
+		<h3 class="text-center">Hi {{currentUser}}  ~Room {{currentRoom}} </h3>
+		<br/><br/>
+    	<div class="col-md-8">
+    		<div class="panel panel-info">
+            	<div class="panel-heading">
+            		RECENT CHAT HISTORY
+            	</div>
+            	<div class="panel-body">
+            		<ul class="media-list">
+                     	<li class="media" ng-repeat="message in currentMessages">
+							<div class="media-body">
+								<div class="media">
+									<a class="pull-left" href="#">
+										<span class="glyphicon glyphicon-envelope"></span>
+									</a>
+									<div class="media-body" >
+										{{message}}
+										<br/>
+										<small class="text-muted">TODO more info</small>
+										<hr/>
+									</div>
+								</div>
+							</div>
+						</li>
+            		</ul>
+            	</div>
+				<div class="panel-footer">
+                	<div class="input-group">
+						<input type="text" class="form-control" placeholder="Enter Message" />
+						<span class="input-group-btn">
+						<button class="btn btn-success" type="button">SEND</button>
+						</span>
+					</div>
+				</div>
+            </div>
+    	</div>
+
+
+
+
+    	<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+               	ONLINE USERS
+				</div>
+			</div>
+			<div class="panel-body">
+
+			</div>
+				<ul class="media-list">
+					<li class="media" ng-repeat="user in currentUsers">
+						<div class="media-body">
+							<div class="media">
+								<a class="pull-left" href="#">
+									<span class="glyphicon glyphicon-user"></span>
+								</a>
+								<div class="media-body" >
+									<h5>{{user}}</h5>
+									<small class="text-muted">TODO more info</small>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

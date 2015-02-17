@@ -2,6 +2,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentRoom = $routeParams.room;
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
+	$scope.currentMessages = ['3 fiddy', 'Oh, my God, we killed Kenny', 'Im not fat, I just havent grown into my body yet you skinny bitch'];
 	$scope.errorMessage = '';
 
 	$scope.leaveRoom = function() {
@@ -9,15 +10,12 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		socket.emit('partroom', $routeParams.room);
 		$location.path('/rooms/' + $routeParams.user);
 	}
-
+	//adds a new room and pends current user information
 	for(i = 0; i < 2; i++) {
 		socket.emit('joinroom', { room: $routeParams.room, pass: undefined }, function (success, reason) {
-			if (!success)
-			{
+			if (!success) {
 				$scope.errorMessage = reason;
-			}
-			else 
-			{
+			} else {
 				socket.emit('rooms');
 			}
 		}); 

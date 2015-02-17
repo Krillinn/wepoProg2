@@ -2,8 +2,21 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentRoom = $routeParams.room;
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
-	$scope.currentMessages = ['3 fiddy', 'Oh, my God, we killed Kenny', 'Im not fat, I just havent grown into my body yet you skinny bitch'];
 	$scope.errorMessage = '';
+
+	$scope.currentMessages = [	'3 fiddy', 
+								'Oh, my God, we killed Kenny',
+								'Im not fat, I just havent grown into my body yet you skinny bitch'
+							];
+
+	$scope.currentUserMessage = '';
+
+	$scope.submitMessage = function() {
+		if($scope.currentUserMessage === '') {
+			$scope.errorMessage = 'Please choose a message to send before continuing!';
+		}
+	}
+
 
 	$scope.leaveRoom = function() {
 		console.log("in delete");

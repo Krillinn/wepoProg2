@@ -15,4 +15,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 			$scope.errorMessage = reason;
 		}
 	});
+
+	
 });

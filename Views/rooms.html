@@ -1,6 +1,20 @@
-<h3>Hi {{currentUser}} - Active chat rooms</h3>
+<div class="row">
+	<h3>Hello ~{{currentUser}} and Welcome</h3>
+	<span class="form-inline pull-right">
+		<span ng-show="errorMessage != ''">
+			<span class="glyphicon glyphicon-thumbs-down"></span> {{errorMessage}}
+		</span>
+		<div class="form-group">
+			<label class="sr-only" for="inputLobbyName">Lobby Name</label>
+			<input type="text" class="form-control" id="inputLobbyName" ng-model="lobbyName" placeholder="Name of Lobby">
+		</div>
+		<button type="button" class="btn btn-primary" ng-click="submitLobbyName()">Add Lobby</button>
+	</span>
+</div>
 <div class="well">
 	<ul ng-repeat="room in rooms">
 		<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
 	</ul>
 </div>
+
+

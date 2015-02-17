@@ -13,11 +13,11 @@ ChatClient.config(
 );
 
 ChatClient.controller('LoginController', function ($scope, $location, $rootScope, $routeParams, socket) {
-	
+
 	$scope.errorMessage = '';
 	$scope.nickname = '';
 
-	$scope.login = function() {			
+	$scope.login = function() {
 		if ($scope.nickname === '') {
 			$scope.errorMessage = 'Please choose a nick-name before continuing!';
 		} else {
@@ -27,13 +27,23 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 				} else {
 					$scope.errorMessage = 'This nick-name is already taken!';
 				}
-			});			
+			});
 		}
 	};
 });
 
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
-	// TODO: Query chat server for active rooms
+	
+	$scope.lobbyName = '';
+	$scope.errorMessage = '';
+
+	$scope.submitLobbyName = function() {
+		if($scope.lobbyName === '') {
+			$scope.errorMessage = 'Please choose a lobby-name before continuing!';
+		} else {
+			console.log("Hello from submitLobbyName");
+		}
+	}
 	$scope.rooms = ['Room 1','Room 2','Room 3','Room 4','Room 5'];
 	$scope.currentUser = $routeParams.user;
 });

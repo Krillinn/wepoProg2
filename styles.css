@@ -1,0 +1,7 @@
+strong
+{
+	display:block;
+	strong.inline {
+		display: inline;
+	}
+}

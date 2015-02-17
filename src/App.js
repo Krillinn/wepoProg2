@@ -34,20 +34,19 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
 
-	$scope.lobbyName = '';
+	$scope.roomName = '';
 	$scope.errorMessage = '';
-	$scope.rooms = [];
+	$scope.rooms = ['room 1', 'room2'];
 
 	$scope.currentUser = $routeParams.user;
 
-	$scope.submitLobbyName = function() {
-		if($scope.lobbyName === '') {
+	$scope.submitRoomName = function() {
+		if($scope.roomName === '') {
 			$scope.errorMessage = 'Please choose a lobby-name before continuing!';
 		} else {
-			$scope.rooms.push($scope.lobbyName);
+			$scope.rooms.push($scope.roomName);
 		}
 	}
-	
 });
 
 ChatClient.controller('RoomController', function ($scope, $location, $rootScope, $routeParams, socket) {

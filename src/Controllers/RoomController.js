@@ -4,19 +4,27 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentUsers = [];
 	$scope.errorMessage = '';
 
-	$scope.currentMessages = [	'3 fiddy', 
-								'Oh, my God, we killed Kenny',
-								'Im not fat, I just havent grown into my body yet you skinny bitch'
-							];
+	$scope.currentMessages = [];
 
 	$scope.currentUserMessage = '';
 
+	//200 chars error handler asap
 	$scope.submitMessage = function() {
 		if($scope.currentUserMessage === '') {
-			$scope.errorMessage = 'Please choose a message to send before continuing!';
+			$scope.errorMessage = 'Please choose a message to send!';
+		} else {
+			socket.emit('sendmsg', { roomName: $routeParams.room, msg: $scope.currentUserMessage });
 		}
 	}
-
+	//TODO acces the data...
+	socket.on('updatechat', function(roomName, messageHistory) {
+		var obj = messageHistory;
+		var allMessages = [];
+		for(var i = 0; i < obj.length; i++) {
+			allMessages.push(obj[i].message);
+		}
+		$scope.currentMessages = allMessages;
+	});
 
 	$scope.leaveRoom = function() {
 		console.log("in delete");

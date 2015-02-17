@@ -18,5 +18,4 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 			$location.path('/room/' + $scope.currentUser + "/" + $scope.roomName);
 		}
 	}
-
 });

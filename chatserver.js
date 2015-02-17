@@ -101,6 +101,7 @@ io.sockets.on('connection', function (socket) {
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
 		
+		console.log("hereeeeeeee");
 		var userAllowed = false;
 
 		//Check if user is allowed to send message.

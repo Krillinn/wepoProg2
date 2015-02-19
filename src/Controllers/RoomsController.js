@@ -2,6 +2,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 
 	$scope.roomName = '';
 	$scope.errorMessage = '';
+	$scope.typoError = '';
 	$scope.rooms = [];
 	$scope.currentUser = $routeParams.user;
 
@@ -11,11 +12,30 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.rooms = Object.keys(roomList);
 	});
 
+	$scope.goToRoom = function(room) {
+		socket.emit('joinroom', { room: room, pass: undefined }, function (success, reason) {
+			if (!success) {
+				$scope.errorMessage = reason;
+			}
+			else {
+				$location.path('/room/' + $scope.currentUser + "/" + room);
+			}
+		}); 
+	}
+
 	$scope.submitRoomName = function() {
 		if($scope.roomName === '') {
-			$scope.errorMessage = 'Please choose a chat-name before continuing!';
-		} else {
-			$location.path('/room/' + $scope.currentUser + "/" + $scope.roomName);
+			$scope.typoError = 'Please choose a chat-name before continuing!';
+		} 
+		else {
+			socket.emit('joinroom', { room: $scope.roomName, pass: undefined }, function (success, reason) {
+				if (!success) {
+					$scope.errorMessage = reason;
+				}
+				else {
+					$location.path('/room/' + $scope.currentUser + "/" + $scope.roomName);
+				}
+			}); 
 		}
 	}
 });

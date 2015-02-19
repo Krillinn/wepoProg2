@@ -78,7 +78,7 @@ io.sockets.on('connection', function (socket) {
 			//Check if the user has been added to the ban list.
 			if(rooms[room].banned[socket.username] !== undefined) {
 				accepted = false;
-				reason = "banned";
+				reason = "Sorry you have been banned from the room:" + room;
 			}
 			//If accepted is set to true at this point the user is allowed to join the room.
 			if(accepted) {
@@ -101,7 +101,6 @@ io.sockets.on('connection', function (socket) {
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
 		
-		console.log("hereeeeeeee");
 		var userAllowed = false;
 
 		//Check if user is allowed to send message.
@@ -169,8 +168,6 @@ io.sockets.on('connection', function (socket) {
 
 	//When a user tries to kick another user this gets performed.
 	socket.on('kick', function (kickObj, fn) {
-		console.log(socket.username + " kicked " + kickObj.user + " from " + kickObj.room);
-
 		if(rooms[kickObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room roster.
 			delete rooms[kickObj.room].users[kickObj.user];
@@ -189,7 +186,6 @@ io.sockets.on('connection', function (socket) {
 
 	//When a user tries to op another user this gets performed.
 	socket.on('op', function (opObj, fn) {
-		console.log(socket.username + " opped " + opObj.user + " from " + opObj.room);
 		if(rooms[opObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room roster.
 			delete rooms[opObj.room].users[opObj.user];

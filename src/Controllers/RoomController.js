@@ -3,12 +3,21 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
 	$scope.errorMessage = '';
-
 	$scope.currentMessages = [];
-
 	$scope.currentUserMessage = '';
 
-	//200 chars error handler asap
+		//adds a new room and pends current user information
+	for(i = 0; i < 2; i++) {
+		socket.emit('joinroom', { room: $routeParams.room, pass: undefined }, function (success, reason) {
+			if (!success) {
+				$scope.errorMessage = reason;
+			} else {
+				socket.emit('rooms');
+			}
+		}); 
+	}
+
+	//TODO 200 chars error handler asap
 	$scope.submitMessage = function() {
 		if($scope.currentUserMessage === '') {
 			$scope.errorMessage = 'Please choose a message to send!';
@@ -30,16 +39,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		console.log("in delete");
 		socket.emit('partroom', $routeParams.room);
 		$location.path('/rooms/' + $routeParams.user);
-	}
-	//adds a new room and pends current user information
-	for(i = 0; i < 2; i++) {
-		socket.emit('joinroom', { room: $routeParams.room, pass: undefined }, function (success, reason) {
-			if (!success) {
-				$scope.errorMessage = reason;
-			} else {
-				socket.emit('rooms');
-			}
-		}); 
 	}
 
 	socket.on('updateusers', function (roomName, users, ops) {

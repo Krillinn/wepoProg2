@@ -35,9 +35,9 @@
 										<span class="glyphicon glyphicon-envelope"></span>
 									</a>
 									<div class="media-body" >
-										{{message}}
+										{{message.message}}
 										<br/>
-										<small class="text-muted">TODO more info</small>
+										<small class="text-muted"> {{message.nick}} | {{message.timestamp | date:'medium'}} </small>
 										<hr/>
 									</div>
 								</div>

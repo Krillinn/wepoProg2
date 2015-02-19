@@ -27,12 +27,8 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	}
 	//TODO acces the data...
 	socket.on('updatechat', function(roomName, messageHistory) {
-		var obj = messageHistory;
-		var allMessages = [];
-		for(var i = 0; i < obj.length; i++) {
-			allMessages.push(obj[i].message);
-		}
-		$scope.currentMessages = allMessages;
+		console.log(messageHistory);
+		$scope.currentMessages = messageHistory;
 	});
 
 	$scope.leaveRoom = function() {

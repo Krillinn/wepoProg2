@@ -21,7 +21,11 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.submitMessage = function() {
 		if($scope.currentUserMessage === '') {
 			$scope.errorMessage = 'Please choose a message to send!';
-		} else {
+		}
+		else if($scope.currentUserMessage.length >= 200){
+				$scope.errorMessage = 'Maximum length of message is 200 characters!';
+		}
+		else {
 			socket.emit('sendmsg', { roomName: $routeParams.room, msg: $scope.currentUserMessage });
 		}
 	}

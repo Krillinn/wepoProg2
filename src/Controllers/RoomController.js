@@ -5,6 +5,8 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.errorMessage = '';
 	$scope.currentMessages = [];
 	$scope.currentUserMessage = '';
+	$scope.successMessage = '';
+	$scope.isOp = false;
 
 		//adds a new room and pends current user information
 	for(i = 0; i < 2; i++) {
@@ -31,18 +33,36 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	}
 	//TODO acces the data...
 	socket.on('updatechat', function(roomName, messageHistory) {
-		console.log(messageHistory);
 		$scope.currentMessages = messageHistory;
 	});
 
+	$scope.kickUser = function(user){
+		socket.emit('kick', { user: user, room: $scope.currentRoom }, function (success, reason) {
+			if(!success) {
+				$scope.errorMessage = 'Sorry, no user found';
+			}
+		});
+	}
+
+	socket.on('kicked', function (room, kickedUser, kicker) {
+		if(kickedUser === $scope.currentUser) {
+			$location.path('/rooms/' + $scope.currentUser + '/');
+		} 
+		else if(kicker === $scope.currentUser) {
+			$scope.successMessage = ('Kicked user by the name of ' + kickedUser);
+		}
+	});
+
 	$scope.leaveRoom = function() {
-		console.log("in delete");
 		socket.emit('partroom', $routeParams.room);
 		$location.path('/rooms/' + $routeParams.user);
 	}
 
 	socket.on('updateusers', function (roomName, users, ops) {
-		// TODO: Check if the roomName equals the current room !
+		if(ops[$scope.currentUser] === $scope.currentUser )
+		{
+			$scope.isOp = true;
+		}
 		$scope.currentUsers = users;
 	});
 

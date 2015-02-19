@@ -1,6 +1,9 @@
 <div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
 	{{errorMessage}}
 </div>
+<div class="alert alert-success" ng-cloak ng-show="successMessage != ''">
+	{{successMessage}}
+</div>
 <!--
 <h3>Hi {{currentUser}}  ~Room {{currentRoom}}</h3>
 <div class="col-md-9">
@@ -72,6 +75,12 @@
 							</a>
 							<div class="media-body" >
 								<h5>{{user}}</h5>
+								<ul class="list-inline" ng-show="isOp">
+								    <li><button class="btn-xs btn-success " type="button" ng-click="kickUser(user)">Op</button></li>
+								    <li><button class="btn-xs btn-danger " type="button" ng-click="kickUser()">Deop</button></li>
+								    <li><button class="btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button></li>
+								    <li><button class="btn-xs btn-warning " type="button" ng-click="kickUser()">Ban</button></li>
+								</ul>
 								<small class="text-muted">TODO more info</small>
 							</div>
 						</div>

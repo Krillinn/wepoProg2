@@ -138,7 +138,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
  			$scope.isOp = false;
  		}
  		else if (deOpOp === $scope.currentUser){
- 			$scope.successMessage = ('You successfully de-opped' + deOppedUser);
+ 			$scope.successMessage = ('You successfully de-opped ' + deOppedUser);
  		}
 
 

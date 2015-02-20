@@ -43,6 +43,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	}
 
+// Kick User
 	//TODO need to fix the leave op problem
 	$scope.kickUser = function(user){
 		socket.emit('kick', { user: user, room: $scope.currentRoom }, function (success, reason) {
@@ -71,7 +72,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	socket.on('updatechat', function(roomName, messageHistory) {
 		$scope.currentMessages = messageHistory;
 	});
-
+// Ban user
 	$scope.banUser = function(user){
 		socket.emit('ban', { user: user, room: $scope.currentRoom }, function (success, reason) {
 			if(!success) {
@@ -80,15 +81,62 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		});
 	};
 
-	socket.on('banned', function (room, bandUser, banOp) {
-		if(bandUser === $scope.currentUser) {
+	socket.on('banned', function (room, bannedUser, banOp) {
+		if(bannedUser === $scope.currentUser) {
 			$location.path('/rooms/' + $scope.currentUser + '/');
 		}
 		else if(banOp === $scope.currentUser) {
-			$scope.successMessage = ('Baned user by the name of ' + bandUser);
+			$scope.successMessage = ('Banned user by the name of ' + bannedUser);
 		}
 	});
 
+
+// Op user
+	 $scope.opUser = function(user){
+	 	socket.emit('op', {user: user, room: $scope.currentRoom}, function (success, reason){
+	 		if(!success){
+	 			$scope.errorMessage = 'Sorry, no user found';
+	 		}
+	 		console.log($scope.currentUsers);
+	 	})
+
+	 };
+
+ 	socket.on('opped',function (room,oppedUser,opOp){
+ 		if(oppedUser === $scope.currentUser){
+ 			$scope.successMessage = ('You were opped by ' + opOp);
+ 		}
+ 		else if (opOp === $scope.currentUser){
+ 			$scope.successMessage = ('You successfully opped ' + oppedUser);
+ 		}
+ 	})
+
+	socket.emit('refreshusers', {room: $routeParams.room, pass: undefined}, function (success, reason){
+ 				if(!success){
+ 					$scope.errorMessage = 'Sorry, no room found';
+ 				}
+ 			});
+// DeOp user
+
+	 $scope.deOpUser = function(user){
+	 	socket.emit('deop', {user: user, room: $scope.currentRoom}, function (success, reason){
+	 		if(!success){
+	 			$scope.errorMessage = 'Sorry, no user found';
+	 		}
+	 	})
+
+	 };
+
+ 	socket.on('deopped',function (room,deOppedUser,deOpOp){
+ 		if(deOppedUser === $scope.currentUser){
+ 			$scope.successMessage = ('You were de-opped by ' + deOpOp);
+ 		}
+ 		else if (deOpOp === $scope.currentUser){
+ 			$scope.successMessage = ('You successfully de-opped' + deOppedUser);
+ 		}
+
+
+ 	})
 });
 
 

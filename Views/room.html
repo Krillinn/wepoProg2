@@ -76,8 +76,8 @@
 							<div class="media-body" >
 								<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
 								<ul class="list-inline" ng-show="isOp">
-								    <li><button class="btn-xs btn-success " type="button" ng-click="kickUser(user)">Op</button></li>
-								    <li><button class="btn-xs btn-danger " type="button" ng-click="kickUser()">Deop</button></li>
+								    <li><button class="btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button></li>
+								    <li><button class="btn-xs btn-danger " type="button" ng-click="DeOpUser()">Deop</button></li>
 								    <li><button class="btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button></li>
 								    <li><button class="btn-xs btn-warning " type="button" ng-click="banUser(user)">Ban</button></li>
 								</ul>

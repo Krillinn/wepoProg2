@@ -32,6 +32,13 @@ io.sockets.on('connection', function (socket) {
 			fn(false); // Callback, it wasn't available
 		}
 	});
+	// Update users in the room
+	socket.on('refreshusers', function (joinObj, fn) {
+		var room = joinObj.room;
+		var pass = joinObj.pass;
+		io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
+		fn(true);
+	})
 
 	//When a user joins a room this processes the request.
 	socket.on('joinroom', function (joinObj, fn) {

@@ -146,7 +146,12 @@ io.sockets.on('connection', function (socket) {
 	socket.on('partroom', function (room) {
 		//remove the user from the room roster and room op roster.
 		delete rooms[room].users[socket.username];
-		delete rooms[room].ops[socket.username];
+		// we want to make sure that the last operator to leave doesn't lose his admin
+		// privileges
+		if(Object.keys(rooms[room].ops).length > 1){
+			delete rooms[room].ops[socket.username];
+			console.log("op deleted");
+		}
 		//Remove the channel from the user object in the global user roster.
 		delete users[socket.username].channels[room];
 		//Update the userlist in the room.

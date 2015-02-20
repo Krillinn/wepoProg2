@@ -195,7 +195,8 @@ io.sockets.on('connection', function (socket) {
 	socket.on('op', function (opObj, fn) {
 		if(rooms[opObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room roster.
-			delete rooms[opObj.room].users[opObj.user];
+			//ATTENTION!!!!!!!!!
+			//delete rooms[opObj.room].users[opObj.user];
 			//Op the user.
 			rooms[opObj.room].ops[opObj.user] = opObj.user;
 			//Broadcast to the room who got opped.

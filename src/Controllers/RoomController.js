@@ -27,7 +27,10 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 		$scope.opArray = ops;
 		$scope.currentUsers = users;
+		console.log("these are the operators ")
 		console.log(ops);
+		console.log("these are the users ")
+		console.log(users);
 	});
 
 	$scope.submitMessage = function() {
@@ -123,6 +126,8 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	 		if(!success){
 	 			$scope.errorMessage = 'Sorry, no user found';
 	 		}
+
+	 		console.log($scope.currentUsers);
 	 	})
 
 	 };
@@ -130,6 +135,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
  	socket.on('deopped',function (room,deOppedUser,deOpOp){
  		if(deOppedUser === $scope.currentUser){
  			$scope.successMessage = ('You were de-opped by ' + deOpOp);
+ 			$scope.isOp = false;
  		}
  		else if (deOpOp === $scope.currentUser){
  			$scope.successMessage = ('You successfully de-opped' + deOppedUser);

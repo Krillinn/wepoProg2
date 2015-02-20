@@ -59,6 +59,10 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.leaveRoom = function() {
 		socket.emit('partroom', $routeParams.room);
 		$location.path('/rooms/' + $routeParams.user);
+		// If he is not the last op to leave his view of the op toolbar gets hidden
+		if($scope.opArray.length > 0){
+			$scope.isOp = false;
+		}
 	}
 
 

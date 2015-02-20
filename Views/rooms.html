@@ -1,6 +1,9 @@
 <div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
 	{{errorMessage}}
 </div>
+
+
+<!--
 <div class="row">
 	<h3 class="text-center">Hello ~{{currentUser}} and Welcome</h3>
 	<span class="form-inline pull-right">
@@ -16,3 +19,67 @@
 		<li><a ng-click="goToRoom(room)" >{{room}}</a></li>
 	</ul>
 </div>
+-->
+
+
+<div class="container">
+	<div class="row">
+		<h3 class="text-center">Hello {{currentUser}}</h3>
+		<span class="form-inline pull-right">
+			<div class="form-group">
+				<label class="sr-only" for="inputRoomName">Room name</label>
+				<input type="text" class="form-control" id="inputRoomName" ng-model="roomName" ng-keypress="getEnter($event)" placeholder="Name of room">
+			</div>
+			<button type="button" class="btn btn-primary" ng-click="submitRoomName()">Add Room</button>
+		</span>
+	</div>
+		<br/><br/>
+		<div class="col-md-8">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					ACTIVE ROOMS
+				</div>
+			</div>
+			<div class="panel-body">
+			</div>
+			<ul class="media-list">
+				<li class="media" ng-repeat="room in rooms">
+					<div class="media-body">
+						<div class="media">
+							<a class="pull-left" href="#">
+								<span class="glyphicon glyphicon-triangle-right"></span>
+							</a>
+							<div class="media-body" >
+								<h5 style="text-color:black"><a ng-click="goToRoom(room)" >{{room}}</a></h5>
+								<small class="text-muted">TODO more info</small>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading" >
+					ONLINE USERS
+				</div>
+			</div>
+			<div class="panel-body">
+			</div>
+			<ul class="media-list">
+				<li class="media" ng-repeat="user in currentUsers">
+					<div class="media-body">
+						<div class="media">
+							<a class="pull-left" href="#">
+								<span class="glyphicon glyphicon-user"></span>
+							</a>
+							<div class="media-body" >
+								<h5>{{user}}</h5>
+								<small class="text-muted">TODO more info</small>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>

@@ -29,12 +29,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		$scope.opArray = ops;
 		$scope.currentUsers = users;
 		$scope.bannedUsers = banned;
-		console.log("these are the operators ");
-		console.log(ops);
-		console.log("these are the users ");
-		console.log(users);
-		console.log("these are the banned users ");
-		console.log(banned);
 	});
 
 
@@ -120,7 +114,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	 		if(!success){
 	 			$scope.errorMessage = 'Sorry, no user found';
 	 		}
-	 		console.log($scope.currentUsers);
 	 	})
 
 	 };
@@ -146,8 +139,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	 		if(!success){
 	 			$scope.errorMessage = 'Sorry, no user found';
 	 		}
-
-	 		console.log($scope.currentUsers);
 	 	})
 
 	 };

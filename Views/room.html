@@ -7,16 +7,16 @@
 <!--
 <h3>Hi {{currentUser}}  ~Room {{currentRoom}}</h3>
 <div class="col-md-9">
-		TODO - display chat
+			TODO - display chat
 </div>
 <div class="col-md-3">
-		<h4>Users in this room</h4>
-		<button type="button" class="btn btn-warning" ng-click="leaveRoom()">Leave Room</button>
-		<div class="well">
-				<ul>
-						<li ng-repeat="user in currentUsers">{{user}}</li>
-				</ul>
-		</div>
+			<h4>Users in this room</h4>
+			<button type="button" class="btn btn-warning" ng-click="leaveRoom()">Leave Room</button>
+			<div class="well">
+						<ul>
+									<li ng-repeat="user in currentUsers">{{user}}</li>
+						</ul>
+			</div>
 </div>
 -->
 <div class="container">
@@ -58,36 +58,36 @@
 				</div>
 			</div>
 		</div>
-div class="col-md-4">
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		ONLINE USERS
-	</div>
-</div>
-<div class="panel-body">
-</div>
-<ul class="media-list">
-	<li class="media" ng-repeat="user in currentUsers">
-		<div class="media-body">
-			<div class="media">
-				<a class="pull-left" href="#">
-					<span class="glyphicon glyphicon-user"></span>
-				</a>
-				<div class="media-body" >
-					<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
-					<div class="btn-group" role="group" ng-show="isOp">
-						<button type="button" class="btn btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button>
-						<button class="btn btn-xs btn-danger " type="button" ng-click="deOpUser(user)">Deop</button>
-						<button class="btn btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button>
-						<button class="btn btn-xs btn-warning " type="button" ng-click="banUser(user)">Ban</button>
-					</div>
-					
-					<small class="text-muted">TODO more info</small>
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					ONLINE USERS
 				</div>
 			</div>
+			<div class="panel-body">
+			</div>
+			<ul class="media-list">
+				<li class="media" ng-repeat="user in currentUsers">
+					<div class="media-body">
+						<div class="media">
+							<a class="pull-left" href="#">
+								<span class="glyphicon glyphicon-user"></span>
+							</a>
+							<div class="media-body" >
+								<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
+								<div class="btn-group" role="group" ng-show="isOp">
+									<button type="button" class="btn btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button>
+									<button class="btn btn-xs btn-danger " type="button" ng-click="deOpUser(user)">Deop</button>
+									<button class="btn btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button>
+									<button class="btn btn-xs btn-warning " type="button" ng-click="banUser(user)">Ban</button>
+								</div>
+								
+								<small class="text-muted">TODO more info</small>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
-	</li>
-</ul>
-</div>
 	</div>
 </div>

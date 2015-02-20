@@ -6,7 +6,7 @@
 	<span class="form-inline pull-right">
 		<div class="form-group">
 			<label class="sr-only" for="inputRoomName">Room name</label>
-			<input type="text" class="form-control" id="inputRoomName" ng-model="roomName" placeholder="Name of room">
+			<input type="text" class="form-control" id="inputRoomName" ng-model="roomName" ng-keypress="getEnter($event)" placeholder="Name of room">
 		</div>
 		<button type="button" class="btn btn-primary" ng-click="submitRoomName()">Add Room</button>
 	</span>

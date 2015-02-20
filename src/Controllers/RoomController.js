@@ -4,6 +4,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentUsers = [];
 	$scope.errorMessage = '';
 	$scope.currentMessages = [];
+	$scope.bannedUsers = [];
 	$scope.currentUserMessage = '';
 	$scope.successMessage = '';
 	$scope.isOp = false;
@@ -20,17 +21,20 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	}); 
 
-	socket.on('updateusers', function (roomName, users, ops) {
+	socket.on('updateusers', function (roomName, users, ops, banned) {
 		if(ops[$scope.currentUser] === $scope.currentUser )
 		{
 			$scope.isOp = true;
 		}
 		$scope.opArray = ops;
 		$scope.currentUsers = users;
-		console.log("these are the operators ")
+		$scope.bannedUsers = banned;
+		console.log("these are the operators ");
 		console.log(ops);
-		console.log("these are the users ")
+		console.log("these are the users ");
 		console.log(users);
+		console.log("these are the banned users ");
+		console.log(banned);
 	});
 
 	$scope.submitMessage = function() {
@@ -97,6 +101,11 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	});
 
+// Unban user
+	$scope.unbanUser = function(user){
+
+
+	};
 
 // Op user
 	 $scope.opUser = function(user){

@@ -187,6 +187,8 @@ io.sockets.on('connection', function (socket) {
 			delete rooms[kickObj.room].ops[kickObj.user];
 			//Broadcast to the room who got kicked.
 			io.sockets.emit('kicked', kickObj.room, kickObj.user, socket.username);
+			//Lets the user know he has been kicked
+			io.sockets.emit('globalRoomsErrorMessage', kickObj.user, "You have been kicked out of the room: " + kickObj.room);
 			//Update user list for room.
 			io.sockets.emit('updateusers', kickObj.room, rooms[kickObj.room].users, rooms[kickObj.room].ops,rooms[kickObj.room].banned);
 			fn(true);
@@ -244,6 +246,8 @@ io.sockets.on('connection', function (socket) {
 			rooms[banObj.room].banUser(banObj.user);
 			//Kick the user from the room.
 			io.sockets.emit('banned', banObj.room, banObj.user, socket.username);
+			//lets the user know he has been baned
+			io.sockets.emit('globalRoomsErrorMessage', banObj.user, "You have been baned from the room: " + banObj.room);
 			io.sockets.emit('updateusers', banObj.room, rooms[banObj.room].users, rooms[banObj.room].ops, rooms[banObj.room].banned);
 			fn(true);
 		}

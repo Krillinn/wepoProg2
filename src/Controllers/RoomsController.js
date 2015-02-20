@@ -12,6 +12,12 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.rooms = Object.keys(roomList);
 	});
 
+	$scope.getEnter = function(event) {
+		if (event.which === 13) {
+    		$scope.submitRoomName();
+    	}
+	}
+
 	$scope.goToRoom = function(room) {
 		socket.emit('joinroom', { room: room, pass: undefined }, function (success, reason) {
 			if (!success) {

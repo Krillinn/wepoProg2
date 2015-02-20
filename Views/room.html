@@ -50,7 +50,7 @@
 				</div>
 				<div class="panel-footer">
 					<div class="input-group">
-						<input type="text" class="form-control" ng-model="currentUserMessage"placeholder="Enter Message" />
+						<input type="text" class="form-control" ng-model="currentUserMessage" ng-keypress="getEnter($event)"  placeholder="Enter Message" autofocus/>
 						<span class="input-group-btn">
 						<button class="btn btn-success" type="button" ng-click="submitMessage()">SEND</button>
 						</span>

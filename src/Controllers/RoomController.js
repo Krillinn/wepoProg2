@@ -19,7 +19,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		else {
 			socket.emit('rooms');
 		}
-	}); 
+	});
 
 	socket.on('updateusers', function (roomName, users, ops, banned) {
 		if(ops[$scope.currentUser] === $scope.currentUser )
@@ -36,6 +36,13 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		console.log("these are the banned users ");
 		console.log(banned);
 	});
+
+
+	$scope.getEnter = function(event) {
+		if (event.which === 13) {
+			$scope.submitMessage();
+		}
+	}
 
 	$scope.submitMessage = function() {
 		if($scope.currentUserMessage === '') {
@@ -153,8 +160,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
  		else if (deOpOp === $scope.currentUser){
  			$scope.successMessage = ('You successfully de-opped ' + deOppedUser);
  		}
-
-
  	})
 });
 

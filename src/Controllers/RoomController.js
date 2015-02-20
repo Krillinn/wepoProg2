@@ -80,6 +80,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	socket.on('kicked', function (room, kickedUser, kicker) {
 		if(kickedUser === $scope.currentUser) {
 			$location.path('/rooms/' + $scope.currentUser + '/');
+			
 		} 
 		else if(kicker === $scope.currentUser) {
 			$scope.successMessage = ('Kicked user by the name of ' + kickedUser);

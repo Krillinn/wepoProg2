@@ -12,6 +12,12 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.rooms = Object.keys(roomList);
 	});
 
+	socket.on('globalRoomsErrorMessage', function (kickedUser, errorMessage) {
+		if($scope.currentUser === kickedUser) {
+			$scope.errorMessage = errorMessage;
+		}
+	});
+
 	$scope.getEnter = function(event) {
 		if (event.which === 13) {
     		$scope.submitRoomName();

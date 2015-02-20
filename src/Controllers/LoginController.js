@@ -3,17 +3,28 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 	$scope.errorMessage = '';
 	$scope.nickname = '';
 
-	$scope.login = function() {
+	var addUser = function() {
 		if ($scope.nickname === '') {
 			$scope.errorMessage = 'Please choose a nick-name before continuing!';
-		} else {
+		}
+		else {
 			socket.emit('adduser', $scope.nickname, function (available) {
 				if (available) {
 					$location.path('/rooms/' + $scope.nickname);
-				} else {
+				} 
+				else {
 					$scope.errorMessage = 'This nick-name is already taken!';
 				}
 			});
 		}
+	}
+
+	$scope.login = function() {
+		addUser();
 	};
+
+	$scope.getValue = function(event) {
+		if (event.which === 13)
+    		addUser();
+		}
 });

@@ -8,7 +8,7 @@
 				</div>
 				<div class="form-group">
 					<label for="nickname" class="control-label">Nick-name</label>
-					<input type="text" class="form-control" id="nickname" name="nickname" ng-model="nickname" autofocus/>
+					<input type="text" class="form-control" id="nickname" name="nickname" ng-model="nickname"           ng-keypress="getValue($event)" autofocus/>
 				</div>
 				<button type="button" class="btn btn-primary" ng-click="login()">Enter chat</button>
 			</div>

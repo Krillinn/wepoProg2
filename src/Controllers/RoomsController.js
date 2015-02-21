@@ -6,7 +6,13 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.rooms = [];
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
-	$scope.searchString = '';
+
+	$scope.privateSender = '';
+	$scope.privateReceiver = '';
+	$scope.currentPrivateUserMessage = '';
+	$scope.incomingPrivateMessage = false;
+	$scope.currentPrivateUserMessages = [];
+
 
 	socket.emit('rooms');
 	socket.emit('users');
@@ -24,6 +30,52 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 			$scope.errorMessage = errorMessage;
 		}
 	});
+
+	socket.on('recv_privatemsg', function (messageSender, message) {
+		$scope.privateSender = $scope.currentUser;
+		$scope.privateReceiver = messageSender;
+		$scope.sendPrivateSignal(messageSender);
+		$scope.incomingPrivateMessage = true;
+	});
+
+	$scope.sendPrivateSignal = function (privateMessageReceiver) {
+		$scope.privateSender = $scope.currentUser;		//sa sem sendir
+		$scope.privateReceiver = privateMessageReceiver; //hver eg sendi á
+		var roomName = getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+		socket.emit('getUpdatePrivateChat', { room: roomName });
+	}
+
+	getPrivateRoomName = function (privateReceiver, privateSender) {
+		var roomName = [];
+		roomName.push(privateReceiver);
+		roomName.push(privateSender);
+		roomName.sort();
+		roomName.toString();
+		return roomName;
+	}
+
+	$scope.sendPrivateMessage = function () {
+		var roomName = getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+		socket.emit('privatemsg', { room: roomName,  nick:  $scope.privateReceiver, message: $scope.currentPrivateUserMessage }, 
+		function (success) {
+			if(!success) {
+				
+			}
+			else {
+				$scope.currentPrivateUserMessage = '';
+			}
+		});
+	}
+
+	socket.on('updateprivatechat', function (roomName, messageHistory) {
+		$scope.currentPrivateUserMessages = messageHistory;
+	});
+
+	$scope.getPrivEnter = function(event) {
+        if (event.which === 13) {
+            $scope.sendPrivateMessage();
+        }
+    }
 
 	$scope.getEnter = function(event) {
 		if (event.which === 13) {
@@ -45,7 +97,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.submitRoomName = function() {
 		if($scope.roomName === '') {
 			$scope.typoError = 'Please choose a chat-name before continuing!';
-		} 
+		}
 		else {
 			socket.emit('joinroom', { room: $scope.roomName, pass: undefined }, function (success, reason) {
 				if (!success) {
@@ -60,33 +112,9 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 });
 
 
-ChatClient.filter('searchFor', function(){
 
-	// All filters must return a function. The first parameter
-	// is the data that is to be filtered, and the second is an
-	// argument that may be passed with a colon (searchFor:searchString)
 
-	return function(arr, searchString){
 
-		if(!searchString){
-			return arr;
-		}
-
-		var result = [];
-
-		searchString = searchString.toLowerCase();
-
-		// Using the forEach helper method to loop through the array
-		angular.forEach(arr, function(currentUsers){
-
-			if(currentUsers.title.toLowerCase().indexOf(searchString) !== -1){
-				result.push(currentUsers);
-			}
-		});
-		return result;
-	};
-
-});
 
 
 

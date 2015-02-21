@@ -11,6 +11,8 @@ var rooms = {};
 //Global user object, since we want to know what rooms each user is in etc.
 var users = {};
 
+var privateRooms = {};
+
 //Default room.
 rooms.lobby = new Room();
 rooms.lobby.setTopic("Welcome to the lobby!");
@@ -130,16 +132,36 @@ io.sockets.on('connection', function (socket) {
 		}
 	});
 
+
 	socket.on('privatemsg', function (msgObj, fn) {
 
+		var room = msgObj.room;
 		//If user exists in global user list.
 		if(users[msgObj.nick] !== undefined) {
+			if(privateRooms[room] === undefined) {
+				privateRooms[room] = new Room();
+			}
+
+			var messageObj = {
+				nick : socket.username,
+				timestamp :  new Date(),
+				message : msgObj.message.substring(0, 200)
+			};
+			privateRooms[msgObj.room].addMessage(messageObj);
+			//TODO
+			io.sockets.emit('updateprivatechat', msgObj.room, privateRooms[msgObj.room].messageHistory);
 			//Send the message only to this user.
 			users[msgObj.nick].socket.emit('recv_privatemsg', socket.username, msgObj.message);
 			//Callback recieves true.
 			fn(true);
 		}
 		fn(false);
+	});
+
+	socket.on('getUpdatePrivateChat', function (msgObj) {
+		if(privateRooms[msgObj.room] !== undefined) {
+			io.sockets.emit('updateprivatechat', msgObj.room, privateRooms[msgObj.room].messageHistory);
+		}
 	});
 
 	//When a user leaves a room this gets performed.
@@ -319,6 +341,18 @@ io.sockets.on('connection', function (socket) {
 		fn(false);
 	});
 });
+
+function PrivateRoom() {
+		this.users = {},
+		this.messageHistory = [],
+
+		this.addUser = function(user) {
+			(user !== undefined) ? this.users[user] = user : console.log("ERROR: add user");
+		};
+		this.addMessage = function(message) {
+			(message !== undefined) ? this.messageHistory.push(message) : console.log("ERROR: add message");
+		};
+}
 
 //Define the Room class/object.
 function Room() {

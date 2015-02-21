@@ -62,12 +62,15 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading" >
 					ONLINE USERS
+					
 				</div>
+
 			</div>
 			<div class="panel-body">
+				<label for="userSearch">Search user:  </label><input type="text"  name="userSearch" data-ng-model="nameText" /> 
 			</div>
 			<ul class="media-list">
-				<li class="media" ng-repeat="user in currentUsers">
+				<li class="media" ng-repeat="user in currentUsers | filter:nameText | orderBy: 'nick'">
 					<div class="media-body">
 						<div class="media">
 							<a class="pull-left" href="#">

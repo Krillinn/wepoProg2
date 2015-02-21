@@ -264,6 +264,8 @@ io.sockets.on('connection', function (socket) {
 		if(rooms[unbanObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room ban list.
 			delete rooms[unbanObj.room].banned[unbanObj.user];
+			io.sockets.emit('updateusers', unbanObj.room, rooms[unbanObj.room].users, rooms[unbanObj.room].ops, rooms[unbanObj.room].banned);
+			console.log("user unbanned");
 			fn(true);
 		}
 		fn(false);

@@ -89,8 +89,10 @@
 										<span class="glyphicon glyphicon-user"></span>
 									</a>
 									<div class="media-body" >
-										<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
-										<button class="btn btn-xs btn-warning " type="button" ng-click="unbanUser(user)">Unban</button>
+										<h5><span style="color:green" ng-if="opArray[user] !== undefined || bannedUsers != []" > OP </span> {{user}}
+											<button class="btn btn-xs btn-warning " type="button" ng-click="unbanUser(user)">Unban</button>
+										 </h5>
+										
 										<small class="text-muted">TODO more info</small>
 									</div>
 								</div>

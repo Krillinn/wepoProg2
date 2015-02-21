@@ -119,10 +119,17 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     // Unban user
     $scope.unbanUser = function(user) {
-
+   		socket.emit('unban', {
+            user: user,
+            room: $scope.currentRoom
+        }, function(success, reason) {
+            if (!success) {
+                $scope.errorMessage = 'Sorry, no user found';
+            }
+        });
 
     };
-
+    
     // Op user
     $scope.opUser = function(user) {
         socket.emit('op', {

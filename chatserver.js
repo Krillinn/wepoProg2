@@ -183,8 +183,13 @@ io.sockets.on('connection', function (socket) {
 		if(rooms[kickObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room roster.
 			delete rooms[kickObj.room].users[kickObj.user];
-			//Remove the user from the ops roster.
-			delete rooms[kickObj.room].ops[kickObj.user];
+			//Remove the user from the ops roster. iff he's not the last op
+			if(Object.keys(rooms[kickObj.room].ops).length > 1){
+					delete rooms[kickObj.room].ops[kickObj.user];
+				console.log("op deleted");
+			}
+		
+		
 			//Broadcast to the room who got kicked.
 			io.sockets.emit('kicked', kickObj.room, kickObj.user, socket.username);
 			//Lets the user know he has been kicked

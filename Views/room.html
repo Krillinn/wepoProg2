@@ -4,7 +4,6 @@
 <div class="alert alert-success" ng-cloak ng-show="successMessage != ''">
 	{{successMessage}}
 </div>
-
 <div class="container">
 	<div class="row ">
 		<h3 class="text-center">Hi {{currentUser}}  Room {{currentRoom}} </h3>
@@ -51,35 +50,54 @@
 				</div>
 			</div>
 			<div class="panel-body">
-			</div>
-			<ul class="media-list">
-				<li class="media" ng-repeat="user in currentUsers">
-					<div class="media-body">
-						<div class="media">
-							<a class="pull-left" href="#">
-								<span class="glyphicon glyphicon-user"></span>
-							</a>
-							<div class="media-body" >
-								<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
-								<div class="btn-group" role="group" ng-show="isOp">
-									<button type="button" class="btn btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button>
-									<button class="btn btn-xs btn-danger " type="button" ng-click="deOpUser(user)">Deop</button>
-									<button class="btn btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button>
-									<button class="btn btn-xs btn-warning " type="button" ng-click="banUser(user)">Ban</button>
+				<ul class="media-list">
+					<li class="media" ng-repeat="user in currentUsers">
+						<div class="media-body">
+							<div class="media">
+								<a class="pull-left" href="#">
+									<span class="glyphicon glyphicon-user"></span>
+								</a>
+								<div class="media-body" >
+									<h5><span style="color:green" ng-if="opArray[user] !== undefined"> OP </span> {{user}}
+																		<div class="btn-group" role="group" ng-show="isOp">
+										<button type="button" class="btn btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button>
+										<button class="btn btn-xs btn-danger " type="button" ng-click="deOpUser(user)">Deop</button>
+										<button class="btn btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button>
+										<button class="btn btn-xs btn-warning " type="button" ng-click="banUser(user)">Ban</button>
+									</div> </h5>
+
+									
+									<small class="text-muted">TODO more info</small>
 								</div>
-								
-								<small class="text-muted">TODO more info</small>
 							</div>
 						</div>
-					</div>
-				</li>
-			</ul>
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					BANNED USERS
-				</div>
+					</li>
+				</ul>
 			</div>
-			<div class="panel-body">
+			<div class="banlist" ng-if="isOp">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						BANNED USERS
+					</div>
+				</div>
+				<div class="panel-body" >
+					<ul class="media-list">
+						<li class="media" ng-repeat="user in bannedUsers">
+							<div class="media-body">
+								<div class="media">
+									<a class="pull-left" href="#">
+										<span class="glyphicon glyphicon-user"></span>
+									</a>
+									<div class="media-body" >
+										<h5>{{user}} <span style="color:green" ng-if="opArray[user] !== undefined"> OP </span></h5>
+										<button class="btn btn-xs btn-warning " type="button" ng-click="unbanUser(user)">Unban</button>
+										<small class="text-muted">TODO more info</small>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

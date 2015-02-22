@@ -12,17 +12,28 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     //adds a new room and pends current user information
 
-    socket.emit('joinroom', {
-        room: $routeParams.room,
-        pass: undefined
+    // socket.emit('joinroom', {
+    //     room: $routeParams.room
+    // }, function(success, reason) {
+    //     if (!success) {
+    //         $scope.errorMessage = reason;
+    //     } else {
+    //         socket.emit('rooms');
+    //     }
+    // });
+//GG added
+    socket.emit('updateroom', {
+        room: $routeParams.room
     }, function(success, reason) {
         if (!success) {
             $scope.errorMessage = reason;
         } else {
+            console.log("worked");
             socket.emit('rooms');
         }
     });
 
+// End of GG added
     socket.on('updateusers', function(roomName, users, ops, banned) {
         if (ops[$scope.currentUser] === $scope.currentUser) {
             $scope.isOp = true;
@@ -87,8 +98,11 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     //TODO acces the data...
     socket.on('updatechat', function(roomName, messageHistory) {
-        $scope.currentMessages = messageHistory;
+        if(roomName === $scope.currentRoom){
+           $scope.currentMessages = messageHistory;
+        }
     });
+
     // Ban user
     $scope.banUser = function(user) {
     	console.log(user);
@@ -119,10 +133,34 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     // Unban user
     $scope.unbanUser = function(user) {
-
-
+        console.log("heeeelllo");
+        socket.emit('unban', user, function(success,reason){
+            if(!success){
+                $scope.errorMessage = 'Sorry, no user found';
+            }
+            else{
+                $scope.successMessage = 'You have successfully unbanned ' + user;
+            }
+        })   
     };
 
+
+    $scope.unbanUser = function(user) {
+        console.log(user);
+        console.log($scope.opArray[user]);
+    // If theres only one op left we can't ban the op 
+        socket.emit('unban', {
+            user: user,
+            room: $scope.currentRoom
+        }, function(success, reason) {
+            if (!success) {
+                $scope.errorMessage = 'Sorry, no user found';
+            }
+            else{
+                $scope.successMessage = "You have successfuly unbanned" + user;            }
+        });
+    
+    };
     // Op user
     $scope.opUser = function(user) {
         socket.emit('op', {
@@ -146,7 +184,6 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     socket.emit('refreshusers', {
         room: $routeParams.room,
-        pass: undefined
     }, function(success, reason) {
         if (!success) {
             $scope.errorMessage = 'Sorry, no room found';

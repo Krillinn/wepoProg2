@@ -40,6 +40,19 @@ io.sockets.on('connection', function (socket) {
 		fn(true);
 	})
 
+	socket.on('updateroom', function (joinObj, fn) {
+		var room = joinObj.room;
+		//Send the room information to the client.
+		rooms[room].addUser(socket.username);
+		//Keep track of the room in the user object.
+		users[socket.username].channels[room] = room;
+		io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops,rooms[room].banned);
+		socket.emit('updatechat', room, rooms[room].messageHistory);
+		socket.emit('updatetopic', room, rooms[room].topic, socket.username);
+		io.sockets.emit('servermessage', "join", room, socket.username);
+			fn(true);
+	});
+
 	//When a user joins a room this processes the request.
 	socket.on('joinroom', function (joinObj, fn) {
 
@@ -264,6 +277,7 @@ io.sockets.on('connection', function (socket) {
 		if(rooms[unbanObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room ban list.
 			delete rooms[unbanObj.room].banned[unbanObj.user];
+			io.sockets.emit('updateusers', unbanObj.room, rooms[unbanObj.room].users, rooms[unbanObj.room].ops, rooms[unbanObj.room].banned);
 			fn(true);
 		}
 		fn(false);
@@ -274,6 +288,12 @@ io.sockets.on('connection', function (socket) {
 		io.sockets.emit('roomlist', rooms);
 	});
 
+
+	// Returns info for the given room if its locked or not
+	socket.on('roominfo', function(roomObj){
+		io.sockets.emit('roominfo',rooms[roomObj.room], rooms[roomObj].locked);
+		fn(true);
+	});
 	//Returns a list of all connected users.
 	socket.on('users', function() {
 		var userlist = [];

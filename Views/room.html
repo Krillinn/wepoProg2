@@ -51,7 +51,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="media-list">
-					<li class="media" ng-repeat="user in currentUsers">
+					<li class="media" ng-repeat="user in currentUsers | orderBy:isOp">
 						<div class="media-body">
 							<div class="media">
 								<a class="pull-left" href="#">
@@ -74,7 +74,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="banlist" ng-if="isOp">
+			<div class="banlist" ng-if="isOp" >
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						BANNED USERS

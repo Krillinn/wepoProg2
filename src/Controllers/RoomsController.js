@@ -142,6 +142,4 @@ ChatClient.controller('RoomsController', function($scope, $location, $rootScope,
         }
     }
 
-
-
 });

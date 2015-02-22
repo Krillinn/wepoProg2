@@ -39,8 +39,11 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	});
 
 	$scope.sendPrivateSignal = function (privateMessageReceiver) {
+		$scope.incomingPrivateMessage = false;
 		$scope.privateSender = $scope.currentUser;		//sa sem sendir
 		$scope.privateReceiver = privateMessageReceiver; //hver eg sendi á
+		$scope.currentPrivateUserMessages = [];
+		console.log("helleeeleelelel");
 		var roomName = getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
 		socket.emit('getUpdatePrivateChat', { room: roomName });
 	}
@@ -68,6 +71,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	}
 
 	socket.on('updateprivatechat', function (roomName, messageHistory) {
+		console.log(messageHistory);
 		$scope.currentPrivateUserMessages = messageHistory;
 	});
 

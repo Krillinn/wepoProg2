@@ -139,7 +139,7 @@ io.sockets.on('connection', function (socket) {
 		//If user exists in global user list.
 		if(users[msgObj.nick] !== undefined) {
 			if(privateRooms[room] === undefined) {
-				privateRooms[room] = new Room();
+				privateRooms[room] = new PrivateRoom();
 			}
 
 			var messageObj = {
@@ -147,7 +147,11 @@ io.sockets.on('connection', function (socket) {
 				timestamp :  new Date(),
 				message : msgObj.message.substring(0, 200)
 			};
-			privateRooms[msgObj.room].addMessage(messageObj);
+
+			if(msgObj.message !== undefined) {
+				privateRooms[msgObj.room].addMessage(messageObj);
+			}
+			
 			//TODO
 			io.sockets.emit('updateprivatechat', msgObj.room, privateRooms[msgObj.room].messageHistory);
 			//Send the message only to this user.

@@ -1,5 +1,4 @@
 ChatClient.controller('RoomsController', function($scope, $location, $rootScope, $routeParams, socket) {
-
     $scope.roomName = '';
     $scope.errorMessage = '';
     $scope.typoError = '';

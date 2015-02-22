@@ -7,7 +7,7 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 		if (event.which === 13) {
 			$scope.login();
 		}
-	}
+	};
 
 	$scope.login = function() {
 		if ($scope.nickname === '') {

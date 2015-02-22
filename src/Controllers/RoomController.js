@@ -39,7 +39,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
         if (event.which === 13) {
             $scope.submitMessage();
         }
-    }
+    };
 
     $scope.submitMessage = function() {
         if ($scope.currentUserMessage === '') {
@@ -53,7 +53,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
             });
             $scope.currentUserMessage = '';
         }
-    }
+    };
 
     // Kick User
     //TODO need to fix the leave op problem
@@ -75,7 +75,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
         if ($scope.opArray.length > 0) {
             $scope.isOp = false;
         }
-    }
+    };
 
 
     socket.on('kicked', function(room, kickedUser, kicker) {
@@ -130,7 +130,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
             } else {
                 $scope.successMessage = 'You have successfully unbanned ' + user;
             }
-        })
+        });
     };
 
     // hmmm why are there two of you
@@ -159,7 +159,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
             if (!success) {
                 $scope.errorMessage = 'Sorry, no user found';
             }
-        })
+        });
 
     };
 
@@ -177,7 +177,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
         if (!success) {
             $scope.errorMessage = 'Sorry, no room found';
         }
-    })
+    });
     // DeOp user
 
     $scope.deOpUser = function(user) {
@@ -190,7 +190,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
                 if (!success) {
                     $scope.errorMessage = 'Sorry, no user found';
                 }
-            })
+            });
         } else {
             $scope.errorMessage = 'You will ruin the chatroom if you deop the last operator';
         }

@@ -59,7 +59,7 @@
 						</a>
 						<div class="media-body" >
 							<h5 style="text-color:black"><a ng-click="goToRoom(room)" >{{room}}</a>
-							<input type="password" id="userEnteredPass" ng-model="userEntered.pass" ng-keypress="getEnter($event)" placeholder="Room pass">
+							<input type="password" id="userEnteredPass" ng-model="roomsObj[room].passkey" ng-keypress="getEnter($event)" placeholder="Room pass" ng-if="roomsObj[room].locked">
 							</h5>
 							<small class="text-muted">TODO more info</small>
 						</div>

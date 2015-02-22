@@ -1,21 +1,29 @@
 <div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
 	{{errorMessage}}
 </div>
+<div class="alert alert-success" ng-cloak ng-show="incomingPrivateMessage">
+	<a class="pull-left" title="Send a private message to {{user}}" data-toggle="modal" data-target=" #myModal" >
+		<span class="glyphicon glyphicon-user" ng-click="sendPrivateSignal(user)"></span>
+		RECEIVED PRIVATE MASSAGE FROM {{privateReceiver}}
+		<br />
+		click to view
+	</a>
+</div>
 <!--
 <div class="row">
-			<h3 class="text-center">Hello ~{{currentUser}} and Welcome</h3>
-			<span class="form-inline pull-right">
-				<div class="form-group">
-							<label class="sr-only" for="inputRoomName">Room name</label>
-							<input type="text" class="form-control" id="inputRoomName" ng-model="roomName" ng-keypress="getEnter($event)" placeholder="Name of room">
-				</div>
-				<button type="button" class="btn btn-primary" ng-click="submitRoomName()">Add Room</button>
-			</span>
+					<h3 class="text-center">Hello ~{{currentUser}} and Welcome</h3>
+					<span class="form-inline pull-right">
+						<div class="form-group">
+											<label class="sr-only" for="inputRoomName">Room name</label>
+											<input type="text" class="form-control" id="inputRoomName" ng-model="roomName" ng-keypress="getEnter($event)" placeholder="Name of room">
+						</div>
+						<button type="button" class="btn btn-primary" ng-click="submitRoomName()">Add Room</button>
+					</span>
 </div>
 <div class="well">
-			<ul ng-repeat="room in rooms">
-						<li><a ng-click="goToRoom(room)" >{{room}}</a></li>
-			</ul>
+					<ul ng-repeat="room in rooms">
+										<li><a ng-click="goToRoom(room)" >{{room}}</a></li>
+					</ul>
 </div>
 -->
 <div class="container">
@@ -66,7 +74,6 @@
 						<div class="media-body" >
 							<h5 style="text-color:black"><a ng-click="goToRoom(room)" >{{room}}</a>
 							<input type="password" id="userEnteredPass" ng-model="userEntered.pass" ng-keypress="getEnter($event)" placeholder="Room pass">
-
 							</h5>
 							<small class="text-muted">TODO more info</small>
 						</div>
@@ -94,10 +101,69 @@
 						<div class="media-body" >
 							<h5>{{user}}</h5>
 							<small class="text-muted">TODO more info</small>
+							=======
+							<div class="panel-body">
+							</div>
+							<ul class="media-list">
+								<li class="media" ng-repeat="user in currentUsers | filter:userName | orderBy:userName" >
+									<div class="media-body">
+										<div class="media">
+											<a class="pull-left" title="Send a private message to {{user}}" data-toggle="modal" data-target=" #myModal" >
+												<span class="glyphicon glyphicon-user" ng-click="sendPrivateSignal(user)"></span>
+											</a>
+											<div class="media-body" >
+												<h5>{{user}}</h5>
+												<small class="text-muted">TODO more info</small>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Private Massage to <span style="color:green">{{privateReceiver}}</span> from <span style="color:red"> {{privateSender}} </span></h4>
+							</div>
+							<div class="modal-body">
+								<div class="panel panel-info">
+									<div class="panel-heading">
+										Private Messages
+									</div>
+									<div class="panel-body">
+										<ul class="media-list">
+											<li class="media" ng-repeat="privMessage in currentPrivateUserMessages">
+												<div class="media-body">
+													<div class="media">
+														<a class="pull-left" href="#">
+															<span class="glyphicon glyphicon-envelope"></span>
+														</a>
+														<div class="media-body" >
+															{{privMessage.message}}
+															<br/>
+															<small class="text-muted"> {{privMessage.nick}} | {{privMessage.timestamp | date:'medium'}} </small>
+															<hr/>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+									<div class="panel-footer">
+										<div class="input-group">
+											<input type="text" class="form-control" ng-model="currentPrivateUserMessage" ng-keypress="getPrivEnter($event)"  placeholder="Enter Message" autofocus/>
+											<span class="input-group-btn">
+											<button class="btn btn-success" type="button" ng-click="sendPrivateMessage()">SEND</button>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</li>
-		</ul>
-	</div>
-</div>

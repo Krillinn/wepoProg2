@@ -10,17 +10,8 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
     $scope.isOp = false;
     $scope.opArray = [];
 
-    //adds a new room and pends current user information
+//adds a new room and pends current user information
 
-    // socket.emit('joinroom', {
-    //     room: $routeParams.room
-    // }, function(success, reason) {
-    //     if (!success) {
-    //         $scope.errorMessage = reason;
-    //     } else {
-    //         socket.emit('rooms');
-    //     }
-    // });
 //GG added
     socket.emit('updateroom', {
         room: $routeParams.room
@@ -105,9 +96,9 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
 
     // Ban user
     $scope.banUser = function(user) {
-    	console.log(user);
-    	console.log($scope.opArray[user]);
-   	// If theres only one op left we can't ban the op 
+        console.log(user);
+        console.log($scope.opArray[user]);
+    // If theres only one op left we can't ban the op 
     if ((Object.keys($scope.opArray).length > 1) || ($scope.opArray[user] != user)){
         socket.emit('ban', {
             user: user,
@@ -117,11 +108,10 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
                 $scope.errorMessage = 'Sorry, no user found';
             }
         });
-		}
-	else{
-		$scope.errorMessage = 'You will ruin the chatroom if you ban the last operator';
-	}
-    };
+        }
+    else{
+        $scope.errorMessage = 'You will ruin the chatroom if you ban the last operator';
+    }
 
     socket.on('banned', function(room, bannedUser, banOp) {
         if (bannedUser === $scope.currentUser) {
@@ -144,7 +134,7 @@ ChatClient.controller('RoomController', function($scope, $location, $rootScope, 
         })   
     };
 
-
+    // hmmm why are there two of you
     $scope.unbanUser = function(user) {
         console.log(user);
         console.log($scope.opArray[user]);

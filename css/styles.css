@@ -1,0 +1,11 @@
+strong
+{
+	display:block;
+	strong.inline {
+		display: inline;
+	}
+}
+
+span.glyphicon-user {
+    font-size: 2.2em;
+}

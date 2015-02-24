@@ -3,9 +3,9 @@ module.exports = function ( grunt ) {
  var taskConfig = {
    jshint: {
 	 src: ['!src/socket.io.min.js',
-		   'src/App.js',
-		   'src/socket-factory.js',
-		   'src/Controllers/**/*.js'],
+		   'client/src/App.js',
+		   'client/src/socket-factory.js',
+		   'client/src/Controllers/**/*.js'],
 	 gruntfile: ['Gruntfile.js'],
 	 options: {
 		curly:  true,

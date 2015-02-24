@@ -1,21 +1,17 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'link' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.36
-4 verbose linkPkg /Users/kristjanthorsteinsson/wepoProg2
-5 error Error: EACCES, symlink '/Users/kristjanthorsteinsson/wepoProg2'
-5 error  { [Error: EACCES, symlink '/Users/kristjanthorsteinsson/wepoProg2']
-5 error   errno: 3,
-5 error   code: 'EACCES',
-5 error   path: '/Users/kristjanthorsteinsson/wepoProg2' }
-6 error Please try running this command again as root/Administrator.
-7 error System Darwin 14.1.0
-8 error command "node" "/usr/local/bin/npm" "link"
-9 error cwd /Users/kristjanthorsteinsson/wepoProg2
-10 error node -v v0.10.36
-11 error npm -v 1.4.28
-12 error path /Users/kristjanthorsteinsson/wepoProg2
-13 error code EACCES
-14 error errno 3
-15 error stack Error: EACCES, symlink '/Users/kristjanthorsteinsson/wepoProg2'
-16 verbose exit [ 3, true ]
+4 error install Couldn't read dependencies
+5 error package.json ENOENT, open '/Users/gunnigylfa/Documents/Skóli/TölvunarstærðfræðiBsc/veff2/Ass2/wepoProg2/package.json'
+5 error package.json This is most likely not a problem with npm itself.
+5 error package.json npm can't find a package.json file in your current directory.
+6 error System Darwin 14.0.0
+7 error command "node" "/usr/local/bin/npm" "install"
+8 error cwd /Users/gunnigylfa/Documents/Skóli/TölvunarstærðfræðiBsc/veff2/Ass2/wepoProg2
+9 error node -v v0.10.36
+10 error npm -v 1.4.28
+11 error path /Users/gunnigylfa/Documents/Skóli/TölvunarstærðfræðiBsc/veff2/Ass2/wepoProg2/package.json
+12 error code ENOPACKAGEJSON
+13 error errno 34
+14 verbose exit [ 34, true ]

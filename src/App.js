@@ -1,6 +1,6 @@
-var ChatClient = angular.module('ChatClient', ['ngRoute']);
+angular.module('ChatClient', ['ngRoute']);
 
-ChatClient.config(
+angular.module('ChatClient').config(
 	function ($routeProvider) {
 		$routeProvider
 			.when('/login', { templateUrl: 'Views/login.html', controller: 'LoginController' })

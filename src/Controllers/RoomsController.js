@@ -1,4 +1,4 @@
-ChatClient.controller('RoomsController', function($scope, $location, $rootScope, $routeParams, socket) {
+angular.module('ChatClient').controller('RoomsController', function($scope, $location, $rootScope, $routeParams, socket) {
 	$scope.roomName = '';
 	$scope.errorMessage = '';
 	$scope.typoError = '';
@@ -7,7 +7,7 @@ ChatClient.controller('RoomsController', function($scope, $location, $rootScope,
 	$scope.currentUsers = [];
 	$scope.rooms = undefined;
 	$scope.roomsObj = undefined;
-	$scope.roomPass = '';
+	$scope.roomPass = undefined;
 	$scope.passRequired = false;
 	$scope.privateSender = '';
 	$scope.privateReceiver = '';
@@ -46,29 +46,29 @@ ChatClient.controller('RoomsController', function($scope, $location, $rootScope,
 		$scope.incomingPrivateMessage = true;
 	});
 
-	$scope.sendPrivateSignal = function(privateMessageReceiver) {
-		$scope.incomingPrivateMessage = false;
-		$scope.privateSender = $scope.currentUser; //sa sem sendir
-		$scope.privateReceiver = privateMessageReceiver; //hver eg sendi á
-		$scope.currentPrivateUserMessages = [];
-		console.log("helleeeleelelel");
-		var roomName = getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
-		socket.emit('getUpdatePrivateChat', {
-			room: roomName
-		});
-	};
-
-	getPrivateRoomName = function(privateReceiver, privateSender) {
+	$scope.getPrivateRoomName = function(privateReceiver, privateSender) {
 		var roomName = [];
 		roomName.push(privateReceiver);
 		roomName.push(privateSender);
 		roomName.sort();
 		roomName.toString();
 		return roomName;
+	};	
+
+	$scope.sendPrivateSignal = function(privateMessageReceiver) {
+		$scope.incomingPrivateMessage = false;
+		$scope.privateSender = $scope.currentUser; //sa sem sendir
+		$scope.privateReceiver = privateMessageReceiver; //hver eg sendi á
+		$scope.currentPrivateUserMessages = [];
+		console.log("helleeeleelelel");
+		var roomName = $scope.getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+		socket.emit('getUpdatePrivateChat', {
+			room: roomName
+		});
 	};
 
 	$scope.sendPrivateMessage = function() {
-		var roomName = getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+		var roomName = $scope.getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
 		socket.emit('privatemsg', {
 				room: roomName,
 				nick: $scope.privateReceiver,
@@ -114,17 +114,16 @@ ChatClient.controller('RoomsController', function($scope, $location, $rootScope,
 	};
 
 	$scope.submitRoomName = function() {
-		var password = undefined;
 		if ($scope.roomName === '') {
 			$scope.typoError = 'Please choose a chat-name before continuing!';
 		} else {
 
-			if ($scope.roomPass !== "") {
-				password = $scope.roomPass;
-			}
+			// if ($scope.roomPass !== "") {
+			// 	password = $scope.roomPass;
+			// }
 			socket.emit('joinroom', {
 				room: $scope.roomName,
-				pass: password
+				pass:  $scope.roomPass
 			}, function(success, reason) {
 				if (!success) {
 					$scope.errorMessage = reason;

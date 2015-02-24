@@ -1,4 +1,4 @@
-ChatClient.controller('RoomController', function($scope, $location, $rootScope, $routeParams, socket) {
+angular.module('ChatClient').controller('RoomController', function($scope, $location, $rootScope, $routeParams, socket) {
     $scope.currentRoom = $routeParams.room;
     $scope.currentUser = $routeParams.user;
     $scope.currentUsers = [];

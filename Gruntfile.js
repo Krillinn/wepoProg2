@@ -5,8 +5,7 @@ module.exports = function ( grunt ) {
 	 src: ['!src/socket.io.min.js',
 		   'src/App.js',
 		   'src/socket-factory.js',
-		   'src/Controllers/**/*.js',
-		   'chatserver.js'],
+		   'src/Controllers/**/*.js'],
 	 gruntfile: ['Gruntfile.js'],
 	 options: {
 		curly:  true,

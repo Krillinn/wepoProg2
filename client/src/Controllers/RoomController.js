@@ -9,6 +9,11 @@ angular.module('ChatClient').controller('RoomController', function($scope, $loca
     $scope.successMessage = '';
     $scope.isOp = false;
     $scope.opArray = [];
+    $scope.privateSender = '';
+    $scope.privateReceiver = '';
+    $scope.currentPrivateUserMessage = '';
+    $scope.incomingPrivateMessage = false;
+    $scope.currentPrivateUserMessages = [];
 
     //adds a new room and pends current user information
 
@@ -34,6 +39,60 @@ angular.module('ChatClient').controller('RoomController', function($scope, $loca
         $scope.bannedUsers = banned;
     });
 
+    socket.on('recv_privatemsg', function(messageSender, message) {
+        $scope.privateSender = $scope.currentUser;
+        $scope.privateReceiver = messageSender;
+        $scope.sendPrivateSignal(messageSender);
+        $scope.incomingPrivateMessage = true;
+    });
+
+    $scope.getPrivateRoomName = function(privateReceiver, privateSender) {
+        var roomName = [];
+        roomName.push(privateReceiver);
+        roomName.push(privateSender);
+        roomName.sort();
+        roomName.toString();
+        return roomName;
+    };  
+
+    $scope.sendPrivateSignal = function(privateMessageReceiver) {
+        $scope.incomingPrivateMessage = false;
+        $scope.privateSender = $scope.currentUser; //sa sem sendir
+        $scope.privateReceiver = privateMessageReceiver; //hver eg sendi á
+        $scope.currentPrivateUserMessages = [];
+        console.log("helleeeleelelel");
+        var roomName = $scope.getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+        socket.emit('getUpdatePrivateChat', {
+            room: roomName
+        });
+    };
+
+    $scope.sendPrivateMessage = function() {
+        var roomName = $scope.getPrivateRoomName($scope.privateReceiver, $scope.privateSender);
+        socket.emit('privatemsg', {
+                room: roomName,
+                nick: $scope.privateReceiver,
+                message: $scope.currentPrivateUserMessage
+            },
+            function(success) {
+                if (!success) {
+
+                } else {
+                    $scope.currentPrivateUserMessage = '';
+                }
+            });
+    };
+
+    socket.on('updateprivatechat', function(roomName, messageHistory) {
+        //console.log(messageHistory);
+        $scope.currentPrivateUserMessages = messageHistory;
+    });
+
+    $scope.getPrivEnter = function(event) {
+        if (event.which === 13) {
+            $scope.sendPrivateMessage();
+        }
+    };
 
     $scope.getEnter = function(event) {
         if (event.which === 13) {

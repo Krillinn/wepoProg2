@@ -4,6 +4,14 @@
 <div class="alert alert-success" ng-cloak ng-show="successMessage != ''">
 	{{successMessage}}
 </div>
+<div ng-cloak ng-show="incomingPrivateMessage">
+	<a class="pull-left" title="Send a private message to {{user}}" data-toggle="modal" data-target=" #myModal" >
+		<span class="glyphicon glyphicon-user" ng-click="sendPrivateSignal(user)"></span>
+		PRIVATE MASSAGE FROM {{privateReceiver}}
+		<br />
+		click to view
+	</a>
+</div>
 <div class="container">
 	<div class="row ">
 		<h3 class="text-center">Hi {{currentUser}}  Room {{currentRoom}} </h3>
@@ -54,12 +62,12 @@
 					<li class="media" ng-repeat="user in currentUsers | orderBy:isOp">
 						<div class="media-body">
 							<div class="media">
-								<a class="pull-left" href="#">
-									<span class="glyphicon glyphicon-user"></span>
+								<a class="pull-left" title="Send a private message to {{user}}" data-toggle="modal" data-target=" #myModal">
+									<span class="glyphicon glyphicon-user" ng-click="sendPrivateSignal(user)"></span>
 								</a>
 								<div class="media-body" >
 									<h5><span style="color:green" ng-if="opArray[user] !== undefined"> OP </span> {{user}}
-																		<div class="btn-group" role="group" ng-show="isOp">
+										<div class="btn-group" role="group" ng-show="isOp">
 										<button type="button" class="btn btn-xs btn-success " type="button" ng-click="opUser(user)">Op</button>
 										<button class="btn btn-xs btn-danger " type="button" ng-click="deOpUser(user)">Deop</button>
 										<button class="btn btn-xs btn-danger " type="button" ng-click="kickUser(user)">kick</button>
@@ -97,6 +105,51 @@
 							</div>
 						</li>
 					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Private Massage to <span style="color:green">{{privateReceiver}}</span> from <span style="color:red"> {{privateSender}} </span></h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						Private Messages
+					</div>
+					<div class="panel-body">
+						<ul class="media-list">
+							<li class="media" ng-repeat="privMessage in currentPrivateUserMessages">
+								<div class="media-body">
+									<div class="media">
+										<a class="pull-left" href="#">
+											<span class="glyphicon glyphicon-envelope"></span>
+										</a>
+										<div class="media-body" >
+											{{privMessage.message}}
+											<br/>
+											<small class="text-muted"> {{privMessage.nick}} | {{privMessage.timestamp | date:'medium'}} </small>
+											<hr/>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="panel-footer">
+						<div class="input-group">
+							<input type="text" class="form-control" ng-model="currentPrivateUserMessage" ng-keypress="getPrivEnter($event)"  placeholder="Enter Message" autofocus/>
+							<span class="input-group-btn">
+							<button class="btn btn-success" type="button" ng-click="sendPrivateMessage()">SEND</button>
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

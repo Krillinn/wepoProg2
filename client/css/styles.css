@@ -9,3 +9,8 @@ strong
 span.glyphicon-user {
     font-size: 2.2em;
 }
+
+.navbarButtons 
+{
+	margin-top: 0.5em;
+}

@@ -9,15 +9,26 @@ angular.module('ChatClient').controller('RoomsController', function($scope, $loc
 	$scope.roomsObj = undefined;
 	$scope.roomPass = undefined;
 	$scope.passRequired = false;
+
 	$scope.privateSender = '';
 	$scope.privateReceiver = '';
 	$scope.currentPrivateUserMessage = '';
 	$scope.incomingPrivateMessage = false;
 	$scope.currentPrivateUserMessages = [];
 
-
 	socket.emit('rooms');
 	socket.emit('users');
+
+	$scope.logOut = function () {
+		socket.emit('disconect');
+		$location.path('/login/');
+	};
+
+    socket.on('updateusersInRooms', function(users) {
+    	console.log("HERE");
+    	console.log(users);
+        socket.emit('users');
+    });
 
 	socket.on('roomlist', function(roomList) {
 		$scope.rooms = Object.keys(roomList);

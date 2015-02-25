@@ -20,7 +20,7 @@ angular.module('ChatClient').controller('RoomController', ["$scope","$location",
 
     //GG added
     socket.emit('updateroom', {
-        room: $routeParams.room
+        room: [$routeParams.room]
     }, function(success, reason) {
         if (!success) {
             $scope.errorMessage = reason;

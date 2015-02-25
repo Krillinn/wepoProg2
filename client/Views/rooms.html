@@ -54,14 +54,12 @@
 			<li class="media" ng-repeat="room in rooms">
 				<div class="media-body">
 					<div class="media">
-						<a class="pull-left" href="#">
-							<span class="glyphicon glyphicon-triangle-right"></span>
-						</a>
 						<div class="media-body" >
-							<h5 style="text-color:black"><a ng-click="goToRoom(room)" >{{room}}</a>
-							<input type="password" id="userEnteredPass" ng-model="roomsObj[room].passkey" ng-keypress="getEnter($event)" placeholder="Room pass" ng-if="roomsObj[room].locked">
-							</h5>
-							<small class="text-muted">TODO more info</small>
+							<h5 style="text-color:black">
+								<span class="glyphicon glyphicon-triangle-right"></span><a ng-click="goToRoom(room)" >{{room}}</a>
+								<input type="password" id="userEnteredPass" ng-model="roomsObj[room].passkey" ng-keypress="getPassEnter($event, room)" placeholder="Room pass" ng-if="roomsObj[room].locked">
+							</h5 >
+							<small class="text-muted"></small>
 						</div>
 					</div>
 				</div>
@@ -86,7 +84,7 @@
 						</a>
 						<div class="media-body" >
 							<h5>{{user}}</h5>
-							<small class="text-muted">TODO more info</small>
+							<small class="text-muted"></small>
 						</div>
 					</div>
 				</div>

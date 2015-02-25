@@ -106,6 +106,12 @@ angular.module('ChatClient').controller('RoomsController', ["$scope","$location"
 		}
 	};
 
+	$scope.getPassEnter = function(event, room) {
+		if (event.which === 13) {
+			$scope.goToRoom(room);
+		}
+	};
+
 	$scope.getEnter = function(event) {
 		if (event.which === 13) {
 			$scope.submitRoomName();

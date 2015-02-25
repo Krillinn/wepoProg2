@@ -3,7 +3,7 @@
 
 ## Instructions
 
-1. Make sure you have node.js and bower installed on your computer.
+1. Make sure you have node.js, bower and git installed on your computer.
 2. Navigate to the projects directory using your favorite command line application.
 3. In both the client and server subfolders run npm install.
   * This will install the neccessary dependencies.
@@ -13,3 +13,4 @@
   * start-server.bat
   * start-client.bat
 6. To build your source files run the task **grunt"** in client subfolder
+

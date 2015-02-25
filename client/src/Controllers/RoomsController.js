@@ -1,4 +1,5 @@
-angular.module('ChatClient').controller('RoomsController', function($scope, $location, $rootScope, $routeParams, socket) {
+angular.module('ChatClient').controller('RoomsController', ["$scope","$location","$rootScope","$routeParams","socket",
+	function($scope, $location, $rootScope, $routeParams, socket) {
 	$scope.roomName = '';
 	$scope.errorMessage = '';
 	$scope.typoError = '';
@@ -145,4 +146,4 @@ angular.module('ChatClient').controller('RoomsController', function($scope, $loc
 		}
 	};
 
-});
+}]);

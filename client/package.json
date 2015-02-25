@@ -11,12 +11,14 @@
   ],
   "author": "Kristjan and Gunnar",
   "license": "ISC",
-  "repository" :{
-	"type" : "git",
-	"url" : "http://github.com/Krillinn/wepoProg2"
-	},
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Krillinn/wepoProg2"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.0"
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-uglify": "^0.8.0"
   }
 }

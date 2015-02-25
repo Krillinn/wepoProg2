@@ -1,5 +1,5 @@
-angular.module('ChatClient').controller('LoginController', function ($scope, $location, $rootScope, $routeParams, socket) {
-
+angular.module('ChatClient').controller('LoginController', ["$scope","$location","$rootScope","$routeParams","socket",
+	function ($scope, $location, $rootScope, $routeParams, socket) {
 	$scope.errorMessage = '';
 	$scope.nickname = '';
 
@@ -22,4 +22,4 @@ angular.module('ChatClient').controller('LoginController', function ($scope, $lo
 			});
 		}
 	};
-});
+}]);

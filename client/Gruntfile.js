@@ -1,5 +1,4 @@
 module.exports = function ( grunt ) {
- grunt.loadNpmTasks('grunt-contrib-jshint');
  var taskConfig = {
    jshint: {
 	 src: ['!src/socket.io.min.js',
@@ -26,8 +25,29 @@ module.exports = function ( grunt ) {
 			$:       false,
 			io:      false
 		}
-	 }
-   }
- };
- grunt.initConfig(taskConfig);
+	} 
+   },
+   concat:{
+		 dist: {
+		      src: ['src/App.js',
+		      		'src/Controllers/**/*.js',
+		      		'src/socket-factory.js',
+		      		],
+		      dest: 'build/concat.min.js',
+		    },
+		},
+	uglify:{
+		dist:{
+			src: ['build/concat.min.js'],
+			dest: 'build/concat.min.js',
+		},
+	}
 };
+
+grunt.initConfig(taskConfig);
+grunt.loadNpmTasks('grunt-contrib-jshint');
+grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.registerTask('default', ['jshint','concat','uglify'] );
+};
+

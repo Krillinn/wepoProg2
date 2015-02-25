@@ -1,6 +1,7 @@
 angular.module('ChatClient', ['ngRoute']);
 
 angular.module('ChatClient').config(
+	["$routeProvider",
 	function ($routeProvider) {
 		$routeProvider
 			.when('/login', { templateUrl: 'Views/login.html', controller: 'LoginController' })
@@ -9,6 +10,6 @@ angular.module('ChatClient').config(
 			.otherwise({
 	  			redirectTo: '/login'
 			});
-	}
+	}]
 );
 

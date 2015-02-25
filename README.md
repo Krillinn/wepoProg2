@@ -12,5 +12,5 @@
 5. Once you have the dependencies installed you will need be located in the wepoProg2 directory and run the following:
   * start-server.bat
   * start-client.bat
-6. To build your source files run the task **grunt"** in client subfolder
+6. To build your source files run the task **grunt** in client subfolder
 
